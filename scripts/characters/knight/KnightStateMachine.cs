@@ -2,12 +2,9 @@ namespace GrayGame.Characters.Knight
 {
     public class KnightStateMachine
     {
-        public KnightCharacter Character { get; }
+        public KnightCharacter Knight { get; }
 
         public KnightStateBase CurrentState { get; private set; }
-
-        public bool IsInCrouchState { get; private set; }
-        public bool IsInInvincibleState { get; private set; }
 
         public KnightIdleState IdleState { get; private set; }
         public KnightRunState RunState { get; private set; }
@@ -29,7 +26,7 @@ namespace GrayGame.Characters.Knight
 
         public KnightStateMachine(KnightCharacter Character)
         {
-            this.Character = Character;
+            this.Knight = Character;
 
             IdleState = new KnightIdleState(this);
             RunState = new KnightRunState(this);
@@ -75,9 +72,6 @@ namespace GrayGame.Characters.Knight
             CurrentState = state;
             previousState?.OnExit();
             CurrentState.OnEnter(previousState);
-
-            IsInCrouchState = state is IKnightCrouchState;
-            IsInInvincibleState = state is IKnightInvincibleState;
         }
 
         public void EnterDefaultState()
@@ -88,7 +82,7 @@ namespace GrayGame.Characters.Knight
                 WallslideState.TryEnter())
                 return;
 
-            EnterState(Character.InputReader.HorizontalMove == 0 ? (KnightStateBase)IdleState : (KnightStateBase)RunState);
+            EnterState(Knight.InputReader.HorizontalMove == 0 ? (KnightStateBase)IdleState : (KnightStateBase)RunState);
         }
 
         public bool TryEnterAttackState()
@@ -97,7 +91,7 @@ namespace GrayGame.Characters.Knight
                 return true;
 
             int oldAttack = KnightAttackState.LastStandAttack;
-            int attack = KnightAttackState.StepAttack(Character.Data.AttackComboMaxDelayInMs);
+            int attack = KnightAttackState.StepAttack(Knight.Data.AttackComboMaxDelayInMs);
 
             if ((attack == 1 && FirstAttackState.TryEnter()) || (attack == 2 && SecondAttackState.TryEnter()))
                 return true;

@@ -5,11 +5,11 @@ namespace GrayGame.Characters.Knight
     public abstract class KnightStateBase
     {
         public KnightStateMachine Machine { get; }
-        public KnightCharacter Character => Machine.Character;
+        public KnightCharacter Knight => Machine.Knight;
 
         public KnightStateBase(KnightStateMachine machine)
         {
-            this.Machine = machine;
+            Machine = machine;
         }
 
         public abstract bool CanEnter();
@@ -48,8 +48,8 @@ namespace GrayGame.Characters.Knight
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            Character.SetCollisionShape(KnightCollisionShape.Stand);
-            Character.SwitchAnimation(KnightCharacter.IdleAnimationKey);
+            Knight.SetCollisionShape(KnightCollisionShape.Stand);
+            Knight.SwitchAnimation(KnightCharacter.IdleAnimationKey);
         }
 
         public override void DoTransitionLogic()
@@ -62,13 +62,13 @@ namespace GrayGame.Characters.Knight
                 Machine.TryEnterAttackState())
                 return;
 
-            if (Character.InputReader.HorizontalMove != 0)
+            if (Knight.InputReader.HorizontalMove != 0)
                 Machine.EnterState(Machine.RunState);
         }
 
         public override void OnPhysicsProcess(float delta)
         {
-            Character.ApplyHorizontalFriction(Character.Data.HorizontalMoveAcceleration);
+            Knight.ApplyHorizontalFriction(Knight.Data.HorizontalMoveAcceleration);
         }
     }
 
@@ -78,12 +78,12 @@ namespace GrayGame.Characters.Knight
         {
         }
 
-        public override bool CanEnter() => Character.InputReader.HorizontalMove != 0 && Character.IsGrounded;
+        public override bool CanEnter() => Knight.InputReader.HorizontalMove != 0 && Knight.IsGrounded;
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            Character.SetCollisionShape(KnightCollisionShape.Stand);
-            Character.SwitchAnimation(KnightCharacter.RunAnimationKey);
+            Knight.SetCollisionShape(KnightCollisionShape.Stand);
+            Knight.SwitchAnimation(KnightCharacter.RunAnimationKey);
         }
 
         public override void DoTransitionLogic()
@@ -96,14 +96,14 @@ namespace GrayGame.Characters.Knight
                 Machine.TryEnterAttackState())
                 return;
 
-            if (Character.InputReader.HorizontalMove == 0)
+            if (Knight.InputReader.HorizontalMove == 0)
                 Machine.EnterState(Machine.IdleState);
         }
 
         public override void OnPhysicsProcess(float delta)
         {
-            Character.ApplyHorizontalMovement(Character.Data.HorizontalMoveAcceleration * Character.InputReader.HorizontalMove, Character.Data.HorizontalMoveSpeed);
-            Character.FlipByVelocity();
+            Knight.ApplyHorizontalMovement(Knight.Data.HorizontalMoveAcceleration * Knight.InputReader.HorizontalMove, Knight.Data.HorizontalMoveSpeed);
+            Knight.FlipByVelocity();
         }
     }
 
@@ -115,27 +115,27 @@ namespace GrayGame.Characters.Knight
         {
         }
 
-        public override bool CanEnter() => Character.IsGrounded && Character.CanStand && Character.InputReader.Jump.Pressed;
+        public override bool CanEnter() => Knight.IsGrounded && Knight.CanStand && Knight.InputReader.Jump.Pressed;
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            _elapsedTime = 0;
+            _elapsedTime = 0.0f;
 
-            Character.SetCollisionShape(KnightCollisionShape.Stand);
-            Character.SwitchAnimation(KnightCharacter.JumpAnimationKey);
-            Character.GravityScale = 0.0f;
+            Knight.SetCollisionShape(KnightCollisionShape.Stand);
+            Knight.SwitchAnimation(KnightCharacter.JumpAnimationKey);
+            Knight.GravityScale = 0.0f;
             // TODO: Play jump particle
         }
 
         public override void DoTransitionLogic()
         {
-            if (_elapsedTime > Character.Data.JumpDuration || Character.IsOnCeiling())
+            if (_elapsedTime > Knight.Data.JumpDuration || Knight.IsOnCeiling())
             {
                 Machine.EnterDefaultState();
             }
-            else if (!Character.InputReader.Jump.Pressed)
+            else if (!Knight.InputReader.Jump.Pressed)
             {
-                Character.BodyVelocity.y = -Character.Data.JumpStopVerticalSpeed;
+                Knight.BodyVelocity.y = -Knight.Data.JumpStopVerticalSpeed;
                 Machine.EnterDefaultState();
             }
         }
@@ -144,19 +144,19 @@ namespace GrayGame.Characters.Knight
         {
             _elapsedTime += delta;
 
-            float progress = _elapsedTime / Character.Data.JumpDuration;
-            float curveMultiplier = Mathf.Ease(progress, Character.Data.JumpSpeedCurve);
-            float verticalSpeed = Character.Data.JumpVerticalSpeed * curveMultiplier;
+            float progress = _elapsedTime / Knight.Data.JumpDuration;
+            float curveMultiplier = Mathf.Ease(progress, Knight.Data.JumpSpeedCurve);
+            float verticalSpeed = Knight.Data.JumpVerticalSpeed * curveMultiplier;
 
-            Character.ApplyHorizontalAirMovement(Character.Data.AirHorizontalAcceleration * Character.InputReader.HorizontalMove, Character.Data.AirHorizontalSpeed, Character.Data.AirHorizontalAcceleration);
-            Character.BodyVelocity.y = -verticalSpeed;
+            Knight.ApplyHorizontalAirMovement(Knight.Data.AirHorizontalAcceleration * Knight.InputReader.HorizontalMove, Knight.Data.AirHorizontalSpeed, Knight.Data.AirHorizontalAcceleration);
+            Knight.BodyVelocity.y = -verticalSpeed;
 
-            Character.FlipByVelocity();
+            Knight.FlipByVelocity();
         }
 
         public override void OnExit()
         {
-            Character.GravityScale = 1.0f;
+            Knight.GravityScale = 1.0f;
         }
     }
 
@@ -168,17 +168,17 @@ namespace GrayGame.Characters.Knight
         {
         }
 
-        public override bool CanEnter() => !Character.IsGrounded;
+        public override bool CanEnter() => !Knight.IsGrounded;
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            _fallStartYPosition = Character.Position.y;
-            Character.SwitchAnimation(KnightCharacter.FallAnimationKey);
+            _fallStartYPosition = Knight.Position.y;
+            Knight.SwitchAnimation(KnightCharacter.FallAnimationKey);
         }
 
         public override void DoTransitionLogic()
         {
-            if (Character.IsGrounded)
+            if (Knight.IsGrounded)
                 Machine.EnterDefaultState();
             else
                 Machine.WallslideState.TryEnter();
@@ -186,8 +186,8 @@ namespace GrayGame.Characters.Knight
 
         public override void OnPhysicsProcess(float delta)
         {
-            Character.ApplyHorizontalAirMovement(Character.Data.AirHorizontalAcceleration * Character.InputReader.HorizontalMove, Character.Data.AirHorizontalSpeed, Character.Data.AirHorizontalAcceleration);
-            Character.FlipByVelocity();
+            Knight.ApplyHorizontalAirMovement(Knight.Data.AirHorizontalAcceleration * Knight.InputReader.HorizontalMove, Knight.Data.AirHorizontalSpeed, Knight.Data.AirHorizontalAcceleration);
+            Knight.FlipByVelocity();
         }
     }
 
@@ -203,7 +203,7 @@ namespace GrayGame.Characters.Knight
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            Character.SwitchAnimationAndWaitFinish(KnightCharacter.CrouchTransitionAnimationKey, OnTransitionFinished);
+            Knight.SwitchAnimationAndWaitFinish(KnightCharacter.CrouchTransitionAnimationKey, OnTransitionFinished);
         }
 
         public void Enter(KnightStateBase transitToState)
@@ -221,14 +221,14 @@ namespace GrayGame.Characters.Knight
                 Machine.TryEnterAttackState())
                 return;
 
-            if (!Character.InputReader.Crouch.Pressed && Character.CanStand)
+            if (!Knight.InputReader.Crouch.Pressed && Knight.CanStand)
                 Machine.EnterDefaultState();
         }
 
         public override void OnPhysicsProcess(float delta)
         {
-            Character.ApplyHorizontalMovement(Character.Data.CrouchWalkAcceleration * Character.InputReader.HorizontalMove, Character.Data.CrouchWalkSpeed);
-            Character.FlipByVelocity();
+            Knight.ApplyHorizontalMovement(Knight.Data.CrouchWalkAcceleration * Knight.InputReader.HorizontalMove, Knight.Data.CrouchWalkSpeed);
+            Knight.FlipByVelocity();
         }
 
         private void OnTransitionFinished()
@@ -243,19 +243,19 @@ namespace GrayGame.Characters.Knight
         {
         }
 
-        public override bool CanEnter() => Character.IsGrounded && Character.InputReader.HorizontalMove == 0 && (Character.InputReader.Crouch.Pressed || !Character.CanStand);
+        public override bool CanEnter() => Knight.IsGrounded && Knight.InputReader.HorizontalMove == 0 && (Knight.InputReader.Crouch.Pressed || !Knight.CanStand);
 
         public override void OnEnter(KnightStateBase previousState)
         {
             bool shouldMakeTransition = !(previousState is IKnightCrouchState);
 
-            Character.BodyVelocity.x = 0;
-            Character.SetCollisionShape(KnightCollisionShape.Crouch);
+            Knight.BodyVelocity.x = 0;
+            Knight.SetCollisionShape(KnightCollisionShape.Crouch);
 
             if (shouldMakeTransition)
                 Machine.CrouchTransitionState.Enter(this);
             else
-                Character.SwitchAnimation(KnightCharacter.CrouchIdleAnimationKey);
+                Knight.SwitchAnimation(KnightCharacter.CrouchIdleAnimationKey);
         }
 
         public override void DoTransitionLogic()
@@ -266,16 +266,16 @@ namespace GrayGame.Characters.Knight
                 Machine.TryEnterAttackState())
                 return;
 
-            if (Character.InputReader.HorizontalMove != 0)
+            if (Knight.InputReader.HorizontalMove != 0)
                 Machine.EnterState(Machine.CrouchWalkState);
-            else if (!Character.InputReader.Crouch.Pressed && Character.CanStand)
+            else if (!Knight.InputReader.Crouch.Pressed && Knight.CanStand)
                 Machine.CrouchTransitionState.Enter(Machine.IdleState);
         }
     }
 
     public class KnightCrouchWalkState : KnightStateBase, IKnightCrouchState
     {
-        public override bool CanEnter() => Character.IsGrounded && Character.InputReader.HorizontalMove != 0 && (Character.InputReader.Crouch.Pressed || !Character.CanStand);
+        public override bool CanEnter() => Knight.IsGrounded && Knight.InputReader.HorizontalMove != 0 && (Knight.InputReader.Crouch.Pressed || !Knight.CanStand);
 
         public KnightCrouchWalkState(KnightStateMachine machine) : base(machine)
         {
@@ -285,13 +285,13 @@ namespace GrayGame.Characters.Knight
         {
             bool shouldMakeTransition = !(previousState is IKnightCrouchState);
 
-            Character.BodyVelocity.x = 0;
-            Character.SetCollisionShape(KnightCollisionShape.Crouch);
+            Knight.BodyVelocity.x = 0;
+            Knight.SetCollisionShape(KnightCollisionShape.Crouch);
 
             if (shouldMakeTransition)
                 Machine.CrouchTransitionState.Enter(this);
             else
-                Character.SwitchAnimation(KnightCharacter.CrouchWalkAnimationKey);
+                Knight.SwitchAnimation(KnightCharacter.CrouchWalkAnimationKey);
         }
 
         public override void DoTransitionLogic()
@@ -302,16 +302,16 @@ namespace GrayGame.Characters.Knight
                 Machine.TryEnterAttackState())
                 return;
 
-            if (Character.InputReader.HorizontalMove == 0)
+            if (Knight.InputReader.HorizontalMove == 0)
                 Machine.EnterState(Machine.CrouchIdleState);
-            else if (!Character.InputReader.Crouch.Pressed && Character.CanStand)
+            else if (!Knight.InputReader.Crouch.Pressed && Knight.CanStand)
                 Machine.CrouchTransitionState.Enter(Machine.IdleState);
         }
 
         public override void OnPhysicsProcess(float delta)
         {
-            Character.ApplyHorizontalMovement(Character.Data.CrouchWalkAcceleration * Character.InputReader.HorizontalMove, Character.Data.CrouchWalkSpeed);
-            Character.FlipByVelocity();
+            Knight.ApplyHorizontalMovement(Knight.Data.CrouchWalkAcceleration * Knight.InputReader.HorizontalMove, Knight.Data.CrouchWalkSpeed);
+            Knight.FlipByVelocity();
         }
     }
 
@@ -320,21 +320,21 @@ namespace GrayGame.Characters.Knight
         private float _animDuration;
         private float _elapsedTime;
         private ulong _lastExitTime = ulong.MinValue;
-        public bool IsInCooldown => OS.GetTicksMsec() - _lastExitTime < Character.Data.RollCooldownInMS;
-
-        public override bool CanEnter() => Character.IsGrounded && !IsInCooldown && Character.CanStand && Character.InputReader.Dash.Pressed && !Character.InputReader.Crouch.Pressed;
+        public bool IsInCooldown => OS.GetTicksMsec() - _lastExitTime < Knight.Data.RollCooldownInMS;
 
         public KnightRollState(KnightStateMachine machine) : base(machine)
         {
-            _animDuration = machine.Character.PlayerAnimator.GetAnimation(KnightCharacter.RollAnimationKey).Length;
+            _animDuration = machine.Knight.PlayerAnimator.GetAnimation(KnightCharacter.RollAnimationKey).Length;
         }
+
+        public override bool CanEnter() => Knight.IsGrounded && !IsInCooldown && Knight.CanStand && Knight.InputReader.Dash.Pressed && !Knight.InputReader.Crouch.Pressed;
 
         public override void OnEnter(KnightStateBase previousState)
         {
             _elapsedTime = 0;
 
-            Character.SetCollisionShape(KnightCollisionShape.Stand);
-            Character.SwitchAnimation(KnightCharacter.RollAnimationKey);
+            Knight.SetCollisionShape(KnightCollisionShape.Stand);
+            Knight.SwitchAnimation(KnightCharacter.RollAnimationKey);
         }
 
         public override void DoTransitionLogic()
@@ -347,8 +347,8 @@ namespace GrayGame.Characters.Knight
         {
             _elapsedTime += delta;
 
-            float curveMultiplier = Character.Data.RollSpeedCurve.Interpolate(_elapsedTime / _animDuration);
-            Character.BodyVelocity.x = Character.Data.RollSpeed * curveMultiplier * Character.FacingDirection;
+            float curveMultiplier = Knight.Data.RollSpeedCurve.Interpolate(_elapsedTime / _animDuration);
+            Knight.BodyVelocity.x = Knight.Data.RollSpeed * curveMultiplier * Knight.FacingDirection;
         }
 
         public override void OnExit()
@@ -362,9 +362,9 @@ namespace GrayGame.Characters.Knight
         private bool _inQuittingAnim;
         private float _elapsedTime;
         private ulong _lastExitTime = ulong.MinValue;
-        public bool IsInCooldown => OS.GetTicksMsec() - _lastExitTime < Character.Data.SlideCooldownInMS;
+        public bool IsInCooldown => OS.GetTicksMsec() - _lastExitTime < Knight.Data.SlideCooldownInMS;
 
-        public override bool CanEnter() => Character.IsGrounded && !IsInCooldown && (!Character.CanStand || Character.InputReader.Crouch.Pressed) && Character.InputReader.Dash.Pressed;
+        public override bool CanEnter() => Knight.IsGrounded && !IsInCooldown && (!Knight.CanStand || Knight.InputReader.Crouch.Pressed) && Knight.InputReader.Dash.Pressed;
 
         public KnightSlideState(KnightStateMachine machine) : base(machine)
         {
@@ -374,13 +374,13 @@ namespace GrayGame.Characters.Knight
         {
             _inQuittingAnim = false;
             _elapsedTime = 0;
-            Character.SetCollisionShape(KnightCollisionShape.Crouch);
-            Character.SwitchAnimation(KnightCharacter.SlideAnimationKey);
+            Knight.SetCollisionShape(KnightCollisionShape.Crouch);
+            Knight.SwitchAnimation(KnightCharacter.SlideAnimationKey);
         }
 
         public override void DoTransitionLogic()
         {
-            if (_elapsedTime >= Character.Data.SlideDuration)
+            if (_elapsedTime >= Knight.Data.SlideDuration)
                 Machine.EnterDefaultState();
         }
 
@@ -388,15 +388,15 @@ namespace GrayGame.Characters.Knight
         {
             _elapsedTime += delta;
 
-            if (!_inQuittingAnim && _elapsedTime > Character.Data.SlideDuration - Character.Data.SlideTransitionTime)
+            if (!_inQuittingAnim && _elapsedTime > Knight.Data.SlideDuration - Knight.Data.SlideTransitionTime)
             {
-                Character.SwitchAnimation(KnightCharacter.SlideTransitionAnimationKey);
+                Knight.SwitchAnimation(KnightCharacter.SlideTransitionAnimationKey);
                 _inQuittingAnim = true;
             }
 
-            float progress = _elapsedTime / Character.Data.SlideDuration;
-            float curveMultiplier = Character.Data.SlideSpeedCurve.Interpolate(progress);
-            Character.BodyVelocity.x = Character.Data.SlideSpeed * curveMultiplier * Character.FacingDirection;
+            float progress = _elapsedTime / Knight.Data.SlideDuration;
+            float curveMultiplier = Knight.Data.SlideSpeedCurve.Interpolate(progress);
+            Knight.BodyVelocity.x = Knight.Data.SlideSpeed * curveMultiplier * Knight.FacingDirection;
         }
 
         public override void OnExit()
@@ -411,32 +411,32 @@ namespace GrayGame.Characters.Knight
         {
         }
 
-        public override bool CanEnter() => !Character.IsGrounded && Character.IsTouchingWall && Character.InputReader.HorizontalMove == Character.FacingDirection;
+        public override bool CanEnter() => !Knight.IsGrounded && Knight.IsTouchingWall && Knight.InputReader.HorizontalMove == Knight.FacingDirection;
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            Character.GravityScale = 0f;
+            Knight.GravityScale = 0f;
 
-            Character.SetCollisionShape(KnightCollisionShape.Stand);
-            Character.SwitchAnimation(KnightCharacter.WallslideAnimationKey);
+            Knight.SetCollisionShape(KnightCollisionShape.Stand);
+            Knight.SwitchAnimation(KnightCharacter.WallslideAnimationKey);
         }
 
         public override void DoTransitionLogic()
         {
-            if (Character.InputReader.Jump.Performed)
+            if (Knight.InputReader.Jump.Performed)
                 Machine.EnterState(Machine.WallJumpState);
-            else if (Character.IsGrounded || !Character.IsTouchingWall || Character.InputReader.HorizontalMove != Character.FacingDirection)
+            else if (Knight.IsGrounded || !Knight.IsTouchingWall || Knight.InputReader.HorizontalMove != Knight.FacingDirection)
                 Machine.EnterDefaultState();
         }
 
         public override void OnPhysicsProcess(float delta)
         {
-            Character.BodyVelocity = new Vector2(0, Character.Data.WallslideSpeed);
+            Knight.BodyVelocity = new Vector2(0, Knight.Data.WallslideSpeed);
         }
 
         public override void OnExit()
         {
-            Character.GravityScale = 1f;
+            Knight.GravityScale = 1f;
         }
     }
 
@@ -444,26 +444,26 @@ namespace GrayGame.Characters.Knight
     {
         private float _elapsedTime;
 
-        public override bool CanEnter() => Machine.CurrentState == Machine.WallslideState && Character.InputReader.Jump.Pressed;
-
         public KnightWalljumpState(KnightStateMachine machine) : base(machine)
         {
         }
 
+        public override bool CanEnter() => Machine.CurrentState == Machine.WallslideState && Knight.InputReader.Jump.Pressed;
+
         public override void OnEnter(KnightStateBase previousState)
         {
             _elapsedTime = 0;
-            Character.GravityScale = 0f;
+            Knight.GravityScale = 0f;
 
-            Character.SetCollisionShape(KnightCollisionShape.Stand);
-            Character.SwitchAnimation(KnightCharacter.JumpAnimationKey);
-            Character.FlipFacingDirection();
-            Character.BodyVelocity = new Vector2(Character.Data.WalljumpSpeed.x * Character.FacingDirection, Character.Data.WalljumpSpeed.y);
+            Knight.SetCollisionShape(KnightCollisionShape.Stand);
+            Knight.SwitchAnimation(KnightCharacter.JumpAnimationKey);
+            Knight.FlipFacingDirection();
+            Knight.BodyVelocity = new Vector2(Knight.Data.WalljumpSpeed.x * Knight.FacingDirection, Knight.Data.WalljumpSpeed.y);
         }
 
         public override void DoTransitionLogic()
         {
-            if (_elapsedTime > Character.Data.WalljumpDuration || Character.IsGrounded || Character.IsOnCeiling())
+            if (_elapsedTime > Knight.Data.WalljumpDuration || Knight.IsGrounded || Knight.IsOnCeiling())
                 Machine.EnterDefaultState();
         }
 
@@ -471,12 +471,12 @@ namespace GrayGame.Characters.Knight
         {
             _elapsedTime += delta;
 
-            Character.ApplyHorizontalFriction(Character.Data.AirHorizontalAcceleration);
+            Knight.ApplyHorizontalFriction(Knight.Data.AirHorizontalAcceleration);
         }
 
         public override void OnExit()
         {
-            Character.GravityScale = 1f;
+            Knight.GravityScale = 1f;
         }
     }
 
@@ -506,9 +506,9 @@ namespace GrayGame.Characters.Knight
             switch (CollisionShape)
             {
                 case KnightCollisionShape.Stand:
-                    return Character.CanStand && Character.IsGrounded && Character.InputReader.Attack.Pressed;
+                    return Knight.CanStand && Knight.IsGrounded && Knight.InputReader.Attack.Pressed;
                 case KnightCollisionShape.Crouch:
-                    return Character.IsGrounded && (!Character.CanStand || Character.InputReader.Crouch.Pressed) && Character.InputReader.Attack.Pressed;
+                    return Knight.IsGrounded && (!Knight.CanStand || Knight.InputReader.Crouch.Pressed) && Knight.InputReader.Attack.Pressed;
                 default:
                     throw new System.IndexOutOfRangeException();
             }
@@ -520,9 +520,9 @@ namespace GrayGame.Characters.Knight
             Triggered = false;
             ExitCommand = ExitAttackCommand.None;
 
-            Character.BodyVelocity = Vector2.Zero;
-            Character.SetCollisionShape(CollisionShape);
-            Character.SwitchAnimationAndWaitFinish(AnimationKey, OnAnimationFinished);
+            Knight.BodyVelocity = Vector2.Zero;
+            Knight.SetCollisionShape(CollisionShape);
+            Knight.SwitchAnimationAndWaitFinish(AnimationKey, OnAnimationFinished);
         }
 
         public override void DoTransitionLogic()
@@ -533,13 +533,13 @@ namespace GrayGame.Characters.Knight
             switch (ExitCommand)
             {
                 case ExitAttackCommand.None:
-                    if (!Character.InputReader.Attack.Pressed)
+                    if (!Knight.InputReader.Attack.Pressed)
                         break;
 
                     bool nextAttackIsCrouch = NextAttackState is IKnightCrouchState;
-                    bool crouchPressed = Character.InputReader.Crouch.Pressed;
+                    bool crouchPressed = Knight.InputReader.Crouch.Pressed;
 
-                    if (nextAttackIsCrouch && (!crouchPressed && Character.CanStand))
+                    if (nextAttackIsCrouch && (!crouchPressed && Knight.CanStand))
                         Machine.EnterState(Machine.FirstAttackState);
                     else if (!nextAttackIsCrouch && crouchPressed)
                         Machine.EnterState(Machine.CrouchAttackState);
@@ -561,9 +561,9 @@ namespace GrayGame.Characters.Knight
 
         public override void OnProcess(float delta)
         {
-            if (Character.InputReader.Dash.Pressed)
+            if (Knight.InputReader.Dash.Pressed)
             {
-                if (Character.InputReader.Crouch.Pressed || !Character.CanStand)
+                if (Knight.InputReader.Crouch.Pressed || !Knight.CanStand)
                     ExitCommand = ExitAttackCommand.Slide;
                 else
                     ExitCommand = ExitAttackCommand.Roll;
@@ -572,15 +572,15 @@ namespace GrayGame.Characters.Knight
 
         public override void OnExit()
         {
-            if (Character.InputReader.HorizontalMove != 0)
-                Character.FlipFacingDirectionTo((int)(Mathf.Sign(Character.InputReader.HorizontalMove)));
+            if (Knight.InputReader.HorizontalMove != 0)
+                Knight.FlipFacingDirectionTo((int)(Mathf.Sign(Knight.InputReader.HorizontalMove)));
         }
 
         public void PerformAttack(int damage, float moveOffset, Vector2 angle, float strength)
         {
-            Character.AttackHitbox.Scale = new Vector2(Mathf.Abs(Character.AttackHitbox.Scale.x) * Character.FacingDirection, Character.AttackHitbox.Scale.y);
-            Character.AttackHitbox.CurrentHit = new CharacterHit(damage, angle, strength, Character.FacingDirection);
-            Character.MoveAndCollide(new Vector2(moveOffset * Character.FacingDirection, 0), false);
+            Knight.AttackHitbox.Scale = new Vector2(Mathf.Abs(Knight.AttackHitbox.Scale.x) * Knight.FacingDirection, Knight.AttackHitbox.Scale.y);
+            Knight.AttackHitbox.CurrentHit = new CharacterHit(damage, angle, strength, Knight.FacingDirection);
+            Knight.MoveAndCollide(new Vector2(moveOffset * Knight.FacingDirection, 0), false);
         }
 
         public void SetupData(string animationKey, KnightCollisionShape collisionShape)
@@ -626,20 +626,20 @@ namespace GrayGame.Characters.Knight
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            Character.SwitchAnimationAndWaitFinish(KnightCharacter.HurtAnimationKey, Machine.EnterDefaultState);
+            Knight.SwitchAnimationAndWaitFinish(KnightCharacter.HurtAnimationKey, Machine.EnterDefaultState);
             var knockback = CurrentHit.angle * CurrentHit.strength;
-            knockback.x *= (Character.Position.x - CurrentHitbox.Position.x) >= 0f ? 1f : -1f;
-            Character.BodyVelocity = knockback;
+            knockback.x *= (Knight.Position.x - CurrentHitbox.Position.x) >= 0f ? 1f : -1f;
+            Knight.BodyVelocity = knockback;
         }
 
         public override void OnPhysicsProcess(float delta)
         {
-            float frictionAmount = Character.Data.HurtAirFriction;
+            float frictionAmount = Knight.Data.HurtAirFriction;
 
-            if (Character.BodyVelocity.Length() > frictionAmount)
-                Character.BodyVelocity -= frictionAmount * Character.BodyVelocity.Normalized();
+            if (Knight.BodyVelocity.Length() > frictionAmount)
+                Knight.BodyVelocity -= frictionAmount * Knight.BodyVelocity.Normalized();
             else
-                Character.BodyVelocity = Vector2.Zero;
+                Knight.BodyVelocity = Vector2.Zero;
         }
 
         public void Enter(Entities.EntityHitbox hitbox)
@@ -660,7 +660,7 @@ namespace GrayGame.Characters.Knight
 
         public override void OnEnter(KnightStateBase previousState)
         {
-            Character.SwitchAnimation(KnightCharacter.DieAnimationKey);
+            Knight.SwitchAnimation(KnightCharacter.DieAnimationKey);
         }
     }
 
