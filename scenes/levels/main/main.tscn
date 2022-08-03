@@ -40,7 +40,7 @@ script = ExtResource( 6 )
 position = Vector2( 1, 1 )
 shape = SubResource( 1 )
 
-[node name="ArcherCharacter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 487, 56 )
+[node name="Archer" parent="." instance=ExtResource( 2 )]
+position = Vector2( 437, 56 )
 
 [connection signal="TakeHit" from="Hitbox/HurtboxArea" to="Hitbox" method="OnTakeHit"]

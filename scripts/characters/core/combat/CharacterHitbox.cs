@@ -9,6 +9,6 @@ namespace GrayGame.Characters
 
         public CharacterBase Character { get; set; }
 
-        public CharacterHit CurrentHit { get; set; }
+        public System.Func<CharacterHit> GetHit { get; set; }
     }
 }

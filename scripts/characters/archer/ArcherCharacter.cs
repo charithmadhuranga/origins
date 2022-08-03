@@ -14,7 +14,7 @@ namespace GrayGame.Characters.Archer
         public const string ShootAnimationKey = "shoot";
         public const string DieAnimationKey = "die";
 
-        [Export] private ArcherData _data;
+        [Export] private ArcherData _data = null;
         public ArcherData Data => _data;
 
         public ArcherStateMachine StateMachine { get; private set; }
@@ -25,6 +25,7 @@ namespace GrayGame.Characters.Archer
 
         public bool IsGrounded { get; private set; }
         public bool IsTouchingWall { get; private set; }
+        public bool IsShootObsolete { get; private set; }
 
         public Sprite PlayerSprite { get; private set; }
         public AnimationPlayer PlayerAnimator { get; private set; }
@@ -71,6 +72,9 @@ namespace GrayGame.Characters.Archer
 
             IsGrounded = GroundRayCast.IsColliding();
             IsTouchingWall = WallRayCast.IsColliding();
+            IsShootObsolete = GetWorld2d().DirectSpaceState.IntersectRay(GlobalPosition,
+                GlobalPosition + new Vector2(ShootPosition.Position.x * FacingDirection, ShootPosition.Position.y),
+                collisionLayer: Data.GroundLayer).Count != 0;
 
             if (!LandedAfterDoubleJump && IsGrounded || IsTouchingWall)
                 LandedAfterDoubleJump = true;

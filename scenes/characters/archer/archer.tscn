@@ -19,6 +19,7 @@ _data = [ Vector2( 0.003125, 0.51227 ), 0.0, 0.0, 0, 0, Vector2( 0.244792, 1 ), 
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 1 )
+_groundLayer = 1
 _gravityForce = 19.6
 _maxFallSpeed = 450.0
 _horizontalMoveSpeed = 250.0
@@ -425,7 +426,8 @@ height = 18.0
 radius = 9.0
 height = 18.0
 
-[node name="ArcherCharacter" type="KinematicBody2D"]
+[node name="Archer" type="KinematicBody2D"]
+position = Vector2( 1, 0 )
 collision_layer = 2
 script = ExtResource( 2 )
 _data = SubResource( 1 )

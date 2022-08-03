@@ -579,7 +579,7 @@ namespace GrayGame.Characters.Knight
         public void PerformAttack(int damage, float moveOffset, Vector2 angle, float strength)
         {
             Knight.AttackHitbox.Scale = new Vector2(Mathf.Abs(Knight.AttackHitbox.Scale.x) * Knight.FacingDirection, Knight.AttackHitbox.Scale.y);
-            Knight.AttackHitbox.CurrentHit = new CharacterHit(damage, angle, strength, Knight.FacingDirection);
+            Knight.AttackHitbox.GetHit = () => new CharacterHit(damage, angle, strength, Knight.FacingDirection);
             Knight.MoveAndCollide(new Vector2(moveOffset * Knight.FacingDirection, 0), false);
         }
 

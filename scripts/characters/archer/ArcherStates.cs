@@ -285,7 +285,7 @@ namespace GrayGame.Characters.Archer
             _animDuration = Archer.PlayerAnimator.GetAnimation(ArcherCharacter.ShootAnimationKey).Length;
         }
 
-        public override bool CanEnter() => Archer.IsGrounded && Archer.InputReader.Shoot.Pressed;
+        public override bool CanEnter() => Archer.IsGrounded && !Archer.IsShootObsolete && Archer.InputReader.Shoot.Pressed;
 
         public override void OnEnter(ArcherStateBase previousState)
         {

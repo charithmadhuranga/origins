@@ -24,8 +24,9 @@ namespace GrayGame.Tests
 
         public void OnTakeHit(CharacterHitbox hitbox)
         {
-            var knockback = hitbox.CurrentHit.angle * hitbox.CurrentHit.strength;
-            knockback.x *= hitbox.CurrentHit.direction;
+            var hit = hitbox.GetHit();
+            var knockback = hit.angle * hit.strength;
+            knockback.x *= hit.direction;
             _motion = knockback;
         }
     }

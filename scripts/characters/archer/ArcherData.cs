@@ -4,6 +4,7 @@ namespace GrayGame.Characters.Archer
 {
     public class ArcherData : Resource
     {
+        [Export(PropertyHint.Layers2dPhysics)] private uint _groundLayer = 1;
         [Export] private float _gravityForce = 9.8f * 2;
         [Export] private float _maxFallSpeed = 300f;
 
@@ -31,6 +32,7 @@ namespace GrayGame.Characters.Archer
         [Export] private PackedScene _shootScene = null;
         [Export] private PackedScene _doubleJumpGfxScene = null;
 
+        public uint GroundLayer => _groundLayer;
         public float GravityForce => _gravityForce;
         public float MaxFallSpeed => _maxFallSpeed;
         public float HorizontalMoveSpeed => _horizontalMoveSpeed;
