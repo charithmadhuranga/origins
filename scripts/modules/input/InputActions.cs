@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GrayGame
+namespace OriginsGame
 {
     public static class InputActions
     {

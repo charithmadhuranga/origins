@@ -42,5 +42,3 @@ shape = SubResource( 1 )
 
 [node name="Archer" parent="." instance=ExtResource( 2 )]
 position = Vector2( 437, 56 )
-
-[connection signal="TakeHit" from="Hitbox/HurtboxArea" to="Hitbox" method="OnTakeHit"]

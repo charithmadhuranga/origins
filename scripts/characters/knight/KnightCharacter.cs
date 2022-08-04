@@ -1,9 +1,9 @@
 using Godot;
-using GrayGame.Entities;
+using OriginsGame.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace GrayGame.Characters.Knight
+namespace OriginsGame.Characters.Knight
 {
     public enum KnightCollisionShape { Stand, Crouch }
 

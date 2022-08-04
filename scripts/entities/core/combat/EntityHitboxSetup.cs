@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GrayGame.Entities
+namespace OriginsGame.Entities
 {
     public class EntityHitboxSetup : Node2D
     {

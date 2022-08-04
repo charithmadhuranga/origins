@@ -1,4 +1,4 @@
-namespace GrayGame.Characters.Archer
+namespace OriginsGame.Characters.Archer
 {
     public class ArcherStateMachine
     {

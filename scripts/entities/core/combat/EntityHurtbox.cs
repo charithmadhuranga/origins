@@ -1,7 +1,7 @@
 using Godot;
-using GrayGame.Characters;
+using OriginsGame.Characters;
 
-namespace GrayGame.Entities
+namespace OriginsGame.Entities
 {
     public class EntityHurtbox : Area2D
     {

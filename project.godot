@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="gray"
+config/name="origins"
 run/main_scene="res://scenes/levels/main/main.tscn"
 config/icon="res://icon.png"
 
@@ -75,6 +75,10 @@ dash={
 2d_physics/layer_6="characters_hurtbox"
 2d_physics/layer_7="entities_hitbox"
 2d_physics/layer_8="entities_hurtbox"
+
+[mono]
+
+profiler/enabled=true
 
 [node]
 

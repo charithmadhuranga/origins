@@ -1,7 +1,7 @@
 using Godot;
-using GrayGame.Characters;
+using OriginsGame.Characters;
 
-namespace GrayGame.Tests
+namespace OriginsGame.Tests
 {
     public class EntityHitboxKnockback : KinematicBody2D
     {

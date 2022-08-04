@@ -1,7 +1,7 @@
 using Godot;
-using GrayGame.Entities;
+using OriginsGame.Entities;
 
-namespace GrayGame.Characters.Archer
+namespace OriginsGame.Characters.Archer
 {
     public class ArcherShoot : Area2D
     {

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GrayGame.Characters
+namespace OriginsGame.Characters
 {
     public struct CharacterHit
     {

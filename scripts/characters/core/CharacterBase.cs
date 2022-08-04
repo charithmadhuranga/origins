@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GrayGame.Characters
+namespace OriginsGame.Characters
 {
     public class CharacterBase : KinematicBody2D
     {

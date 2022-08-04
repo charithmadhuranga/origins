@@ -1,4 +1,4 @@
-namespace GrayGame.Characters.Knight
+namespace OriginsGame.Characters.Knight
 {
     public class KnightStateMachine
     {

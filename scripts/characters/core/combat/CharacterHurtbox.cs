@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Godot;
-using GrayGame.Entities;
+using OriginsGame.Entities;
 
-namespace GrayGame.Characters
+namespace OriginsGame.Characters
 {
     public class CharacterHurtbox : Area2D
     {
