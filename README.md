@@ -4,7 +4,13 @@
 
 Origins is a metroidvania game written in C# for Godot.
 
-### Main
+## Contributing
+
+To get started contributing to the project, see the [contributing guide](CONTRIBUTING.md).
+
+## External assets
+
+### Characters
 
 - [Knight](https://aamatniekss.itch.io/fantasy-knight-free-pixelart-animated-character)
 - [Archer](https://astrobob.itch.io/arcane-archer)
@@ -12,7 +18,6 @@ Origins is a metroidvania game written in C# for Godot.
 ### Environments
 
 - [The Pale Moonlight](https://corwin-zx.itch.io/the-pale-moonlight)
-
 
 ## Setup
 
