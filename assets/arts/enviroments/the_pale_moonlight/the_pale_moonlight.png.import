@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tpm_dead-trees.png-c9f2136cc957d653c1ab7ed67db0fda4.stex"
+path="res://.import/the_pale_moonlight.png-32c96e228be41fddf68485c1346dc7d5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/arts/enviroments/the_pale_moonlight/tpm_dead-trees.png"
-dest_files=[ "res://.import/tpm_dead-trees.png-c9f2136cc957d653c1ab7ed67db0fda4.stex" ]
+source_file="res://assets/arts/enviroments/the_pale_moonlight/the_pale_moonlight.png"
+dest_files=[ "res://.import/the_pale_moonlight.png-32c96e228be41fddf68485c1346dc7d5.stex" ]
 
 [params]
 
