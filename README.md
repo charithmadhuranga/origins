@@ -23,6 +23,6 @@ To get started contributing to the project, see the [contributing guide](CONTRIB
 
 ### Github Installation
 
-1. Download the godot 3.4.4-stable-mono
+1. Download the godot 3.5-stable-mono
 2. Clone this repository into a directory in your computer
 3. Open the project in godot
