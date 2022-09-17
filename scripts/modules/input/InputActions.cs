@@ -1,6 +1,6 @@
 using Godot;
 
-namespace OriginsGame
+namespace OriginsGame.Modules.Input
 {
     public static class InputActions
     {

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace OriginsGame
+namespace OriginsGame.Modules.Input
 {
     public class InputAction
     {
@@ -17,9 +17,9 @@ namespace OriginsGame
 
         public void Update()
         {
-            Performed = Input.IsActionJustPressed(action);
-            Pressed = Input.IsActionPressed(action);
-            Released = Input.IsActionJustReleased(action);
+            Performed = Godot.Input.IsActionJustPressed(action);
+            Pressed = Godot.Input.IsActionPressed(action);
+            Released = Godot.Input.IsActionJustReleased(action);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Godot;
+using OriginsGame.Modules.Input;
 
 namespace OriginsGame.Characters.Archer
 {
