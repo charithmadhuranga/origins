@@ -29,29 +29,29 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.140625, 1 ), 0.0, 0.0, 0, 
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 18 )
-_gravityForce = 19.6
-_maxFallSpeed = 450.0
+_gravityForce = 19.0
+_maxFallSpeed = 300.0
 _horizontalMoveAcceleration = 40.0
-_horizontalMoveSpeed = 250.0
-_airHorizontalSpeed = 200.0
+_horizontalMoveSpeed = 200.0
+_airHorizontalSpeed = 160.0
 _airHorizontalAcceleration = 30.0
-_crouchWalkSpeed = 175.0
+_crouchWalkSpeed = 140.0
 _crouchWalkAcceleration = 25.0
-_jumpDuration = 0.3
-_jumpVerticalSpeed = 270.0
-_jumpStopVerticalSpeed = 45.0
-_jumpSpeedCurve = 0.05
+_jumpDuration = 0.45
+_jumpVerticalSpeed = 195.0
+_jumpStopVerticalSpeed = 60.0
+_jumpSpeedCurve = 0.15
 _slideDuration = 0.54
-_slideSpeed = 450.0
+_slideSpeed = 300.0
 _slideTransitionTime = 0.1
 _slideCooldownInMS = 400
 _slideSpeedCurve = SubResource( 3 )
-_rollSpeed = 300.0
+_rollSpeed = 240.0
 _rollSpeedCurve = SubResource( 2 )
 _rollCooldownInMS = 350
 _attackComboMaxDelayInMs = 550
 _wallslideSpeed = 130.0
-_walljumpSpeed = Vector2( 350, -300 )
+_walljumpSpeed = Vector2( 280, -240 )
 _walljumpDuration = 0.2
 _hurtAirFriction = 10.0
 
@@ -945,10 +945,6 @@ position = Vector2( 0, 12.5 )
 shape = SubResource( 112 )
 disabled = true
 
-[node name="Camera" type="Camera2D" parent="."]
-current = true
-zoom = Vector2( 0.5, 0.5 )
-
 [node name="HeadArea" type="Area2D" parent="."]
 collision_layer = 0
 input_pickable = false
@@ -993,6 +989,12 @@ cast_to = Vector2( 0, 6 )
 position = Vector2( 8, -6 )
 enabled = true
 cast_to = Vector2( 2, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+smoothing_enabled = true
+smoothing_speed = 3.0
 
 [connection signal="animation_finished" from="Animator" to="." method="OnAnimatorAnimationFinish"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="OnHurtboxAreaEntered"]

@@ -132,7 +132,7 @@ namespace OriginsGame.Characters.Archer
             _elapsedTime += delta;
 
             float progress = _elapsedTime / Archer.Data.JumpDuration;
-            float curveMultiplier = Mathf.Ease(progress, Archer.Data.JumpSpeedCurve);
+            float curveMultiplier = Mathf.Ease(1f - progress, Archer.Data.JumpSpeedCurve);
             float verticalSpeed = Archer.Data.JumpVerticalSpeed * curveMultiplier;
 
             Archer.ApplyHorizontalAirMovement(Archer.Data.AirHorizontalAcceleration * Archer.InputReader.HorizontalMove, Archer.Data.AirHorizontalSpeed, Archer.Data.AirHorizontalAcceleration);
@@ -185,7 +185,7 @@ namespace OriginsGame.Characters.Archer
             _elapsedTime += delta;
 
             float progress = _elapsedTime / Archer.Data.DoubleJumpDuration;
-            float curveMultiplier = Mathf.Ease(progress, Archer.Data.DoubleJumpSpeedCurve);
+            float curveMultiplier = Mathf.Ease(1f - progress, Archer.Data.DoubleJumpSpeedCurve);
             float verticalSpeed = Archer.Data.DoubleJumpVerticalSpeed * curveMultiplier;
 
             Archer.ApplyHorizontalAirMovement(Archer.Data.AirHorizontalAcceleration * Archer.InputReader.HorizontalMove, Archer.Data.AirHorizontalSpeed, Archer.Data.AirHorizontalAcceleration);

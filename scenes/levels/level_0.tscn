@@ -13,7 +13,7 @@ extents = Vector2( 9, 19 )
 [node name="Node" type="Node"]
 
 [node name="Knight" parent="." instance=ExtResource( 1 )]
-position = Vector2( 374, 103 )
+position = Vector2( 364, 105 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

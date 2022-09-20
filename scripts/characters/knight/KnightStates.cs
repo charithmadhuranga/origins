@@ -115,7 +115,7 @@ namespace OriginsGame.Characters.Knight
         {
         }
 
-        public override bool CanEnter() => Knight.IsGrounded && Knight.CanStand && Knight.InputReader.Jump.Pressed;
+        public override bool CanEnter() => Knight.IsGrounded && Knight.CanStand && Knight.InputReader.Jump.Performed;
 
         public override void OnEnter(KnightStateBase previousState)
         {
@@ -129,11 +129,7 @@ namespace OriginsGame.Characters.Knight
 
         public override void DoTransitionLogic()
         {
-            if (_elapsedTime > Knight.Data.JumpDuration || Knight.IsOnCeiling())
-            {
-                Machine.EnterDefaultState();
-            }
-            else if (!Knight.InputReader.Jump.Pressed)
+            if (_elapsedTime > Knight.Data.JumpDuration || Knight.IsOnCeiling() || !Knight.InputReader.Jump.Pressed)
             {
                 Knight.BodyVelocity.y = -Knight.Data.JumpStopVerticalSpeed;
                 Machine.EnterDefaultState();
@@ -145,7 +141,7 @@ namespace OriginsGame.Characters.Knight
             _elapsedTime += delta;
 
             float progress = _elapsedTime / Knight.Data.JumpDuration;
-            float curveMultiplier = Mathf.Ease(progress, Knight.Data.JumpSpeedCurve);
+            float curveMultiplier = Mathf.Ease(1f - progress, Knight.Data.JumpSpeedCurve);
             float verticalSpeed = Knight.Data.JumpVerticalSpeed * curveMultiplier;
 
             Knight.ApplyHorizontalAirMovement(Knight.Data.AirHorizontalAcceleration * Knight.InputReader.HorizontalMove, Knight.Data.AirHorizontalSpeed, Knight.Data.AirHorizontalAcceleration);

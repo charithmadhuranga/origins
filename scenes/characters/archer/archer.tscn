@@ -20,23 +20,23 @@ _data = [ Vector2( 0.003125, 0.51227 ), 0.0, 0.0, 0, 0, Vector2( 0.244792, 1 ), 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 1 )
 _groundLayer = 1
-_gravityForce = 19.6
-_maxFallSpeed = 450.0
-_horizontalMoveSpeed = 250.0
-_horizontalMoveAcceleration = 40.0
-_airHorizontalSpeed = 200.0
-_airHorizontalAcceleration = 30.0
-_jumpDuration = 0.3
-_jumpVerticalSpeed = 270.0
-_jumpSpeedCurve = 0.15
-_jumpStopVerticalSpeed = 175.0
-_doubleJumpDuration = 0.2
-_doubleJumpVerticalSpeed = 325.0
-_doubleJumpSpeedCurve = 0.3
-_rollSpeed = 300.0
+_gravityForce = 19.0
+_maxFallSpeed = 260.0
+_horizontalMoveSpeed = 230.0
+_horizontalMoveAcceleration = 46.0
+_airHorizontalSpeed = 184.0
+_airHorizontalAcceleration = 34.5
+_jumpDuration = 0.45
+_jumpVerticalSpeed = 225.0
+_jumpSpeedCurve = 0.13
+_jumpStopVerticalSpeed = 69.0
+_doubleJumpDuration = 0.4
+_doubleJumpVerticalSpeed = 195.0
+_doubleJumpSpeedCurve = 0.145
+_rollSpeed = 276.0
 _rollSpeedCurve = SubResource( 13 )
 _rollCooldownInMS = 350
-_wallslideSpeed = 130.0
+_wallslideSpeed = 110.0
 _walljumpForce = Vector2( 350, -300 )
 _walljumpDuration = 0.2
 _shootScene = ExtResource( 12 )
@@ -453,7 +453,6 @@ position = Vector2( 0, 7 )
 shape = SubResource( 2 )
 
 [node name="Camera" type="Camera2D" parent="."]
-current = true
 zoom = Vector2( 0.5, 0.5 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -483,6 +482,12 @@ position = Vector2( 22.5, 2.5 )
 
 [node name="DoubleJumpGfxPosition" type="Position2D" parent="."]
 position = Vector2( 0, 26 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+smoothing_enabled = true
+smoothing_speed = 3.0
 
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="OnHurtboxAreaEntered"]
 [connection signal="area_exited" from="Hurtbox" to="." method="OnHurtboxAreaExited"]
