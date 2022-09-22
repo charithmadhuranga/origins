@@ -31,3 +31,4 @@ margin_bottom = 40.0
 material = SubResource( 2 )
 margin_right = 1366.0
 margin_bottom = 768.0
+input_pass_on_modal_close_click = false
