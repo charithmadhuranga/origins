@@ -44,42 +44,6 @@ _doubleJumpGfxScene = ExtResource( 13 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ ExtResource( 5 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 4 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0 ]
-}
 
 [sub_resource type="Animation" id=9]
 resource_name = "double_jump"
@@ -428,6 +392,7 @@ height = 18.0
 
 [node name="Archer" type="KinematicBody2D"]
 position = Vector2( 1, 0 )
+z_index = 15
 collision_layer = 2
 script = ExtResource( 2 )
 _data = SubResource( 1 )
@@ -449,6 +414,7 @@ anims/shoot = SubResource( 10 )
 anims/wallslide = SubResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 7 )
 shape = SubResource( 2 )
 
@@ -479,9 +445,15 @@ cast_to = Vector2( 2, 0 )
 
 [node name="ShootPosition" type="Position2D" parent="."]
 position = Vector2( 22.5, 2.5 )
+__meta__ = {
+"_gizmo_extents_": 5.0
+}
 
 [node name="DoubleJumpGfxPosition" type="Position2D" parent="."]
 position = Vector2( 0, 26 )
+__meta__ = {
+"_gizmo_extents_": 3.0
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

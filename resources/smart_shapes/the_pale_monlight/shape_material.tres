@@ -1,0 +1,119 @@
+[gd_resource type="Resource" load_steps=22 format=2]
+
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/bottom_right.png" type="Texture" id=1]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/top_center.png" type="Texture" id=2]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/top_left.png" type="Texture" id=3]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/fill.png" type="Texture" id=4]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/allaround.png" type="Texture" id=5]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/bottom_center.png" type="Texture" id=6]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/top_right.png" type="Texture" id=7]
+[ext_resource path="res://assets/arts/enviroments/the_pale_moonlight/smart_shape/bottom_left.png" type="Texture" id=8]
+[ext_resource path="res://addons/rmsmartshape/materials/shape_material.gd" type="Script" id=9]
+[ext_resource path="res://addons/rmsmartshape/materials/edge_material.gd" type="Script" id=10]
+[ext_resource path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" type="Script" id=11]
+[ext_resource path="res://addons/rmsmartshape/normal_range.gd" type="Script" id=12]
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 10 )
+textures = [ ExtResource( 2 ) ]
+texture_normals = [  ]
+textures_corner_outer = [  ]
+textures_corner_inner = [  ]
+texture_normals_corner_outer = [  ]
+texture_normals_corner_inner = [  ]
+textures_taper_left = [ ExtResource( 3 ) ]
+textures_taper_right = [ ExtResource( 7 ) ]
+texture_normals_taper_left = [  ]
+texture_normals_taper_right = [  ]
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 12 )
+begin = 45.0
+distance = 90.0
+edgeRendering = Vector2( 0, 0 )
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 11 )
+edge_material = SubResource( 20 )
+normal_range = SubResource( 21 )
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 10 )
+textures = [ ExtResource( 6 ) ]
+texture_normals = [  ]
+textures_corner_outer = [  ]
+textures_corner_inner = [  ]
+texture_normals_corner_outer = [  ]
+texture_normals_corner_inner = [  ]
+textures_taper_left = [ ExtResource( 8 ) ]
+textures_taper_right = [ ExtResource( 1 ) ]
+texture_normals_taper_left = [  ]
+texture_normals_taper_right = [  ]
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 12 )
+begin = 225.0
+distance = 90.0
+edgeRendering = Vector2( 0, 0 )
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 11 )
+edge_material = SubResource( 23 )
+normal_range = SubResource( 24 )
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 10 )
+textures = [ ExtResource( 5 ) ]
+texture_normals = [  ]
+textures_corner_outer = [  ]
+textures_corner_inner = [  ]
+texture_normals_corner_outer = [  ]
+texture_normals_corner_inner = [  ]
+textures_taper_left = [  ]
+textures_taper_right = [  ]
+texture_normals_taper_left = [  ]
+texture_normals_taper_right = [  ]
+use_corner_texture = false
+use_taper_texture = false
+fit_mode = 0
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 12 )
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2( 0, 0 )
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 11 )
+edge_material = SubResource( 26 )
+normal_range = SubResource( 27 )
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = 0.0
+
+[resource]
+script = ExtResource( 9 )
+_edge_meta_materials = [ SubResource( 22 ), SubResource( 25 ), SubResource( 28 ) ]
+fill_textures = [ ExtResource( 4 ) ]
+fill_texture_normals = [  ]
+fill_texture_z_index = -10
+fill_mesh_offset = 0.0
+render_offset = 0.0

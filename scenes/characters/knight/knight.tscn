@@ -908,7 +908,9 @@ extents = Vector2( 37.5, 19.5 )
 radius = 7.0
 
 [node name="Knight" type="KinematicBody2D"]
+z_index = 15
 collision_layer = 2
+collision/safe_margin = 0.01
 script = ExtResource( 17 )
 _data = SubResource( 1 )
 

@@ -1,6 +1,20 @@
-[gd_resource type="Environment" format=2]
+[gd_resource type="Environment" load_steps=3 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0622711, 0.783883, 1 )
+colors = PoolColorArray( 0.0787073, 0.0605941, 0.10791, 1, 0.821457, 0.667102, 0.904785, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
 [resource]
 background_mode = 4
 glow_enabled = true
-glow_bloom = 0.05
+glow_levels/1 = true
+glow_levels/2 = true
+glow_levels/4 = true
+glow_bloom = 0.01
+glow_blend_mode = 1
+glow_hdr_threshold = 1.1
+adjustment_enabled = true
+adjustment_color_correction = SubResource( 2 )
