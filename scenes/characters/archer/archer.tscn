@@ -462,4 +462,4 @@ smoothing_enabled = true
 smoothing_speed = 3.0
 
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="OnHurtboxAreaEntered"]
-[connection signal="area_exited" from="Hurtbox" to="." method="OnHurtboxAreaExited"]
+[connection signal="area_exited" from="Hurtbox" to="Hurtbox" method="OnHurtboxAreaExited"]
