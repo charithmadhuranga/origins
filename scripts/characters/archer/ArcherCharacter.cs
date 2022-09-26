@@ -83,7 +83,7 @@ namespace OriginsGame.Characters.Archer
 
             StateMachine.PhysicsProcess(delta);
 
-            BodyVelocity = MoveAndSlide(BodyVelocity, Vector2.Up);
+            BodyVelocity = MoveAndSlide(BodyVelocity, upDirection: Vector2.Up, stopOnSlope: true);
         }
 
         public void SwitchAnimation(string animationKey)
